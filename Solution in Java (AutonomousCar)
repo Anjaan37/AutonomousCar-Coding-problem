@@ -1,0 +1,103 @@
+// CODE 
+
+import java.util.Scanner;
+class AutonomousCar{
+    // Attributes Declare 
+
+    int carId;
+    String brand ;
+    int noOfTestConducted;
+    int noOfTestsPassed;
+    String enviroment;
+    String grade;
+
+    //Construtor
+
+    public AutonomousCar(int carId,String brand,int noOfTestConducted,int noOfTestsPassed,String enviroment ){
+
+        this.carId=carId;
+        this.brand=brand;
+        this.noOfTestConducted=noOfTestConducted;
+        this.noOfTestsPassed=noOfTestsPassed;
+        this.enviroment=enviroment;
+
+    }
+
+    //getter & setter 
+
+} 
+public class Solution {
+    //main method 
+    public static void main(String[] args) {
+        Scanner sc=new Scanner(System.in);
+
+        AutonomousCar arr[]=new AutonomousCar[4];
+
+        //user input
+
+        for(int i=0;i<arr.length;i++){
+
+            int a =sc.nextInt();
+            sc.nextLine();
+            String b=sc.nextLine();
+            int c=sc.nextInt();
+            int d=sc.nextInt();
+            sc.nextLine();
+            String e=sc.nextLine();
+
+            arr[i]=new AutonomousCar(a, b, c, d, e);
+        }
+
+        String input=sc.nextLine();
+        String inputBrand=sc.nextLine();
+
+        //method call 
+
+        int result=findTestPassedByEnv(arr,input);
+        if(result==0){
+            System.out.println("No");
+        }
+        else{
+            System.out.println(result);
+        }
+        AutonomousCar obj=updateCarGrade(arr,inputBrand);
+        if(obj==null){
+            System.out.println("No car is available");
+        }
+        else{
+            System.out.println(obj.brand+"::"+obj.grade);
+        }
+
+    }
+
+     //method declare
+      
+    public static int findTestPassedByEnv(AutonomousCar arr[],String input){
+        int sum=0;
+        for(int i=0;i<arr.length;i++){
+            if(arr[i].enviroment.equalsIgnoreCase(input)){
+                sum+=arr[i].noOfTestsPassed;
+            }
+            
+        }
+
+        return sum;
+    }
+    public static AutonomousCar updateCarGrade(AutonomousCar arr[],String inputBrand){
+        int rating;
+        for(int i=0;i<arr.length;i++){
+            if(arr[i].brand.equalsIgnoreCase(inputBrand)){
+                rating=((arr[i].noOfTestsPassed*100)/arr[i].noOfTestConducted);
+                if(rating>=80){
+                    arr[i].grade="A1";
+                }
+                else{
+                    arr[i].grade="B2";
+                }
+                return arr[i];
+            }
+            
+        }
+        return null;
+    }
+    }
